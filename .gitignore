@@ -22,8 +22,7 @@ npm-debug.log*
 Thumbs.db
 
 # Arquivos temporarios de configuracao do Android Studio
-window.xml
-login.xml
+*.xml
 
 # Apk
 apps/*.apk
