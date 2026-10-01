@@ -6,9 +6,17 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
+concurrency:
+  group: mobile-tests-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   android-tests:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Checkout do repositório
