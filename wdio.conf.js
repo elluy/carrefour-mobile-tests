@@ -1,4 +1,8 @@
+const fs = require('node:fs');
+const path = require('node:path');
+
 exports.config = {
+    
     //
     // ====================
     // Runner Configuration
@@ -157,8 +161,27 @@ specs: [
      * @param {object} config wdio configuration object
      * @param {Array.<Object>} capabilities list of capabilities details
      */
-    // onPrepare: function (config, capabilities) {
-    // },
+onPrepare: function () {
+    const resultsDir = path.resolve('./allure-results');
+
+    fs.mkdirSync(resultsDir, { recursive: true });
+
+    const environment = [
+        'Projeto=Carrefour Mobile Tests',
+        'Framework=WebdriverIO',
+        'Automacao=Appium',
+        'Plataforma=Android',
+        'Dispositivo=Pixel 7 Emulator',
+        `Node.js=${process.version}`,
+        `Sistema Operacional=${process.platform}`
+    ].join('\n');
+
+    fs.writeFileSync(
+        path.join(resultsDir, 'environment.properties'),
+        environment,
+        'utf8'
+    );
+},
     /**
      * Gets executed before a worker process is spawned and can be used to initialize specific service
      * for that worker as well as modify runtime environments in an async fashion.
@@ -238,8 +261,11 @@ specs: [
      * @param {boolean} result.passed    true if test has passed, otherwise false
      * @param {object}  result.retries   information about spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
-    // afterTest: function(test, context, { error, result, duration, passed, retries }) {
-    // },
+    afterTest: async function (test, context, { passed }) {
+    if (!passed) {
+        await browser.takeScreenshot();
+    }
+    },
 
 
     /**
