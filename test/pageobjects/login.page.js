@@ -32,6 +32,22 @@ class LoginPage {
     return $('android=new UiSelector().text("Please enter at least 8 characters")');
     }
 
+    get signUpTab() {
+    return $('~button-sign-up-container');
+    }
+
+    get confirmPasswordInput() {
+    return $('~input-repeat-password');
+    }
+
+    get signUpButton() {
+    return $('~button-SIGN UP');
+    }
+
+    get passwordMismatchMessage() {
+    return $('android=new UiSelector().text("Please enter the same password")');
+    }
+
     async login(email, password) {
         await this.emailInput.setValue(email);
         await this.passwordInput.setValue(password);
@@ -40,6 +56,17 @@ class LoginPage {
 
     async closeAlert() {
         await this.alertOkButton.click();
+    }
+
+    async openSignUp() {
+    await this.signUpTab.click();
+    }
+
+    async signUp(email, password, confirmPassword) {
+    await this.emailInput.setValue(email);
+    await this.passwordInput.setValue(password);
+    await this.confirmPasswordInput.setValue(confirmPassword);
+    await this.signUpButton.click();    
     }
 }
 
