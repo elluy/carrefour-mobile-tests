@@ -25,6 +25,6 @@ Thumbs.db
 window.xml
 login.xml
 
-# App binaries
+# Apk
 apps/*.apk
 apps/*.ipa

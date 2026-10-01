@@ -1,4 +1,3 @@
-
 class NavigationPage {
     get homeButton() {
         return $('~Home');
@@ -12,16 +11,16 @@ class NavigationPage {
         return $('~Forms');
     }
 
+    async openHome() {
+        await this.homeButton.click();
+    }
+
     async openLogin() {
         await this.loginButton.click();
     }
 
     async openForms() {
         await this.formsButton.click();
-    }
-
-    async openHome() {
-        await this.homeButton.click();
     }
 }
 
