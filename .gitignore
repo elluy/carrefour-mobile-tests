@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Allure Reports
+allure-results/
+allure-report/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Env
+.env
+.env.*
+
+# IDE
+.vscode/
+.idea/
+
+# SO
+.DS_Store
+Thumbs.db
+
+# Arquivos temporarios de configuracao do Android Studio
+window.xml
+login.xml
+
+# App binaries
+apps/*.apk
+apps/*.ipa
