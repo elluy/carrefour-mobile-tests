@@ -1,0 +1,30 @@
+name: iOS Tests
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ios-tests:
+    runs-on: macos-15
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout do repositorio
+        uses: actions/checkout@v4
+
+      - name: Verificar Xcode
+        run: |
+          xcodebuild -version
+          xcode-select -p
+
+      - name: Listar simuladores iOS
+        run: |
+          xcrun simctl list devices available
+
+      - name: Verificar ambiente
+        run: |
+          sw_vers
+          node --version
