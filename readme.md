@@ -164,6 +164,10 @@ Um job separado publica o relatório no **GitHub Pages** para execuções da `ma
 
 - **Android:** implementado e executável localmente e no GitHub Actions.
 
+## Exemplo do report
+<img width="1061" height="906" alt="image" src="https://github.com/user-attachments/assets/1e5aa57f-6888-4c56-8a99-527389370d01" />
+
+
 ## Referências
 
 - [WebdriverIO](https://webdriver.io/)
