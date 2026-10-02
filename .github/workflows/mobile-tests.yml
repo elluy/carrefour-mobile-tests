@@ -17,6 +17,8 @@ jobs:
   android-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      ANDROID_EMULATOR_WAIT_TIME_BEFORE_KILL: "5"
 
     steps:
       - name: Checkout do repositório
