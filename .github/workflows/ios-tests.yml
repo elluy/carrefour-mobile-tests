@@ -1,6 +1,9 @@
 name: iOS Tests
 
 on:
+  push:
+    branches:
+      - feature/ios-tests
   workflow_dispatch:
 
 permissions:
