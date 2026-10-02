@@ -43,6 +43,16 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
 
+      - name: Baixar aplicativo Android
+        run: |
+          mkdir -p apps
+
+          curl --fail --location --retry 3 \
+            --output apps/native-demo-app.apk \
+            https://github.com/webdriverio/native-demo-app/releases/download/v2.2.0/android.wdio.native.app.v2.2.0.apk
+
+          test -s apps/native-demo-app.apk
+
       - name: Iniciar emulador Android
         uses: reactivecircus/android-emulator-runner@v2
         with:
