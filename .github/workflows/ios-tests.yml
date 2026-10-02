@@ -33,13 +33,35 @@ jobs:
           node --version
 
       - name: Baixar aplicativo iOS
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          curl -fL --retry 3 \
-            https://github.com/webdriverio/native-demo-app/releases/download/v2.2.0/iOS-Simulator-NativeDemoApp-2.2.0.app.zip \
-            -o ios-app.zip
+          gh release view v2.2.0 \
+            --repo webdriverio/native-demo-app \
+            --json assets \
+            --jq '.assets[].name'
+
+          ASSET=$(gh release view v2.2.0 \
+            --repo webdriverio/native-demo-app \
+            --json assets \
+            --jq '.assets[].name' |
+            grep -Ei 'ios.*simulator.*\.zip$' |
+            head -n 1)
+
+          if [ -z "$ASSET" ]; then
+            echo "Artefato iOS Simulator nao encontrado."
+            exit 1
+          fi
+
+          echo "Baixando: $ASSET"
+
+          gh release download v2.2.0 \
+            --repo webdriverio/native-demo-app \
+            --pattern "$ASSET" \
+            --output ios-app.zip
 
       - name: Extrair aplicativo
         run: |
           mkdir -p apps/ios
           unzip -q ios-app.zip -d apps/ios
-          find apps/ios -maxdepth 3 -name "*.app"
+          find apps/ios -name "*.app"
