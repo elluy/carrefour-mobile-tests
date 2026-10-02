@@ -65,3 +65,30 @@ jobs:
           mkdir -p apps/ios
           unzip -q ios-app.zip -d apps/ios
           find apps/ios -name "*.app"
+
+      - name: Iniciar simulador iOS
+        run: |
+          xcrun simctl boot "iPhone 16 Pro"
+          xcrun simctl bootstatus "iPhone 16 Pro" -b
+
+      - name: Instalar aplicativo iOS
+        run: |
+          xcrun simctl install booted apps/ios/wdiodemoapp.app
+
+      - name: Identificar Bundle ID
+        run: |
+          /usr/libexec/PlistBuddy \
+            -c "Print CFBundleIdentifier" \
+            apps/ios/wdiodemoapp.app/Info.plist
+
+      - name: Abrir aplicativo iOS
+        run: |
+          BUNDLE_ID=$(/usr/libexec/PlistBuddy \
+            -c "Print CFBundleIdentifier" \
+            apps/ios/wdiodemoapp.app/Info.plist)
+
+          xcrun simctl launch booted "$BUNDLE_ID"
+
+      - name: Verificar simulador
+        run: |
+          xcrun simctl list devices booted
