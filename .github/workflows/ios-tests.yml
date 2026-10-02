@@ -31,3 +31,15 @@ jobs:
         run: |
           sw_vers
           node --version
+
+      - name: Baixar aplicativo iOS
+        run: |
+          curl -fL --retry 3 \
+            https://github.com/webdriverio/native-demo-app/releases/download/v2.2.0/iOS-Simulator-NativeDemoApp-2.2.0.app.zip \
+            -o ios-app.zip
+
+      - name: Extrair aplicativo
+        run: |
+          mkdir -p apps/ios
+          unzip -q ios-app.zip -d apps/ios
+          find apps/ios -maxdepth 3 -name "*.app"
