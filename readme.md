@@ -21,6 +21,10 @@ Os testes seguem o padrão **Page Object**, separando seletores e ações das va
 
 Nunca tinha utilizado o WebdriverIO, estou mais acostumado com o RobotFramework com Python, mas a ideia e estrutura de projetos são bem parecidas.
 
+Os testes rodam na pipeline tmb através do Run Workflow, caso queira ter acesso para acionar e ver o resultado na pipeline, é só solicitar por email, informando o nome de usuário do github.
+
+Realizei apenas os testes focados no Android, até cheguei a criar em outra branch a parte do iOS, mas faltou tempo para estabilizar e testar.
+
 ```text
 carrefour-mobile-tests/
 ├── .github/
