@@ -73,8 +73,19 @@ jobs:
           emulator-options: -no-window -no-snapshot -noaudio -no-boot-anim -gpu swiftshader_indirect
           script: |
             adb devices -l
+
             appium --log appium.log &
+            APPIUM_PID=$!
+
+            set +e
             npx wdio run ./wdio.conf.js
+            TEST_EXIT_CODE=$?
+
+            echo "Encerrando Appium..."
+            kill "$APPIUM_PID" 2>/dev/null || true
+            wait "$APPIUM_PID" 2>/dev/null || true
+
+            exit "$TEST_EXIT_CODE"
 
       - name: Publicar resultados Allure
         if: always()
