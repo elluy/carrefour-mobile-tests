@@ -71,7 +71,10 @@ jobs:
           disk-size: 4096M
           disable-animations: true
           emulator-options: -no-window -no-snapshot -noaudio -no-boot-anim -gpu swiftshader_indirect
-          script: bash ./scripts/run-android-tests.sh
+          script: |
+            pwd
+            ls -la ./scripts
+            bash -x ./scripts/run-android-tests.sh
 
       - name: Publicar resultados Allure
         if: always()
