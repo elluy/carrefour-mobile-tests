@@ -68,6 +68,7 @@ jobs:
           ram-size: 2048M
           disk-size: 4096M
           disable-animations: true
+          emulator-options: -no-window -no-snapshot -noaudio -no-boot-anim -gpu swiftshader_indirect
           script: |
             adb devices -l
             appium --log appium.log &
