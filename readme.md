@@ -17,6 +17,10 @@ A implementação atual contempla **Android**, com execução local e no **GitHu
 
 Os testes seguem o padrão **Page Object**, separando seletores e ações das validações realizadas nos arquivos de especificação. Dados de entrada de login e cadastro ficam em arquivos próprios, facilitando manutenção e reutilização. As verificações utilizam as asserções do WebdriverIO e priorizam seletores de acessibilidade e identificadores estáveis.
 
+## Observações
+
+Nunca tinha utilizado o WebdriverIO, estou mais acostumado com o RobotFramework com Python, mas a ideia e estrutura de projetos são bem parecidas.
+
 ```text
 carrefour-mobile-tests/
 ├── .github/
@@ -155,7 +159,6 @@ Um job separado publica o relatório no **GitHub Pages** para execuções da `ma
 ## Limitações e evolução
 
 - **Android:** implementado e executável localmente e no GitHub Actions.
-- **CI/CD:** o projeto utiliza **GitHub Actions**; não há configuração de GitLab CI.
 
 ## Referências
 
