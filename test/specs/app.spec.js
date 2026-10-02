@@ -1,10 +1,12 @@
 
 describe('Inicialização do aplicativo', () => {
-    it('Deve abrir o aplicativo com sucesso', async () => {
-        const appState = await driver.queryAppState(
-            'com.wdiodemoapp'
-        );
-
-        expect(appState).toBe(4);
+    it('Deve iniciar o aplicativo corretamente', async () => {
+        if (driver.isAndroid) {
+            const state = await driver.queryAppState('com.wdiodemoapp');
+            expect(state).toBe(4);
+        } else {
+            const state = await driver.queryAppState('org.wdiodemoapp');
+            expect(state).toBe(4);
+        }
     });
 });
