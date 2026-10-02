@@ -12,7 +12,7 @@ permissions:
 jobs:
   ios-tests:
     runs-on: macos-15
-    timeout-minutes: 10
+    timeout-minutes: 30
 
     steps:
       - name: Checkout do repositorio
@@ -31,6 +31,20 @@ jobs:
         run: |
           sw_vers
           node --version
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Instalar Appium e XCUITest
+        run: |
+          npm install -g appium@3
+          appium driver install xcuitest
 
       - name: Baixar aplicativo iOS
         env:
@@ -92,3 +106,22 @@ jobs:
       - name: Verificar simulador
         run: |
           xcrun simctl list devices booted
+
+      - name: Executar teste iOS
+        run: |
+          appium --log appium-ios.log &
+          APPIUM_PID=$!
+
+          trap 'kill "$APPIUM_PID" 2>/dev/null || true' EXIT
+
+          echo "Aguardando Appium..."
+
+          for i in {1..30}; do
+            if curl --silent --fail \
+              http://127.0.0.1:4723/status > /dev/null; then
+              break
+            fi
+            sleep 2
+          done
+
+          npx wdio run ./wdio.ios.conf.js
